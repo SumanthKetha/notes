@@ -5,20 +5,23 @@
 
     <button class="btn btn-primary mr-2" (click)="addNewNote()">Add</button>
     <button class="btn btn-danger mr-2" (click)="deleteNote(notesArea)" *ngIf="notesArea.date">Delete</button>
-    <input type="text" name="searchText" [(ngModel)]="searchText" placeholder="Search text here...">
+    <input type="text" name="searchText" [(ngModel)]="searchText" placeholder="Search text here..."
+      *ngIf="notesListArr.length">
   </div>
+  <h6 *ngIf="notesListArr.length && !(notesListArr | search : searchText).length" class="text-center mt-3 ml-15">No
+    Matches
+    Found
+  </h6>
   <div class="row">
-    <h6 *ngIf="notesListArr.length && !(notesListArr | search : searchText).length" class="text-center mt-3">No Matches
-      Found
-    </h6>
     <div class="col-4">
       <div width="50%" *ngFor="let notes of notesListArr|search:searchText;let n=index" class="m-4"
-        [ngStyle]="{'background-color':notesArea.date && notesArrIndex==n?'#f8edd5':''}">
-        <h4 (click)="notesArea=notes;notesArrIndex=n">{{notes.content}}</h4>
+        [ngStyle]="{'background-color':notesArea.date && notesArrIndex==n?'#f8edd5':''}"
+        (click)="notesArea=notes;notesArrIndex=n">
+        <h4>{{notes.content}}</h4>
         <p>Created At: {{notes.date|date:'dd MMM yyyy, hh:mm a'}}</p>
       </div>
     </div>
-    <div class="col-8" width="50%" *ngIf="notesArea.date">
+    <div class="col-8" width="50%" *ngIf="notesArea.date && (notesListArr | search : searchText).length">
       <p class="mt-2"> <strong>{{notesArea.date|date:'dd MMM yyyy,hh:mm a'}}</strong></p>
       <textarea name="content" cols="70" rows="20" [(ngModel)]="notesArea.content" (focusout)="updateNote(notesArea)"
         class="form-control"></textarea>

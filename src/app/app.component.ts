@@ -17,9 +17,9 @@ export class AppComponent implements OnInit {
     this.getNotesList();
   }
   /****************************************************************************
-  @PURPOSE     : Update Client Profile
-  @Parameter   : form, clientProfile
-  @Return      : NA
+  @PURPOSE     : To show the notes list
+  @Parameter   : NA
+  @Return      : Get the notes list from localstorage
   /****************************************************************************/
   getNotesList() {
     if (window.localStorage.getItem('notes')) {
